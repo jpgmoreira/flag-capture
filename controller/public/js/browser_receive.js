@@ -2,6 +2,9 @@
 socket.on('data-from-process', (data) => {
 	if (!cppInitialized) {
 		cppInitialized = true;
+		document.getElementById('initializing').style.display = 'none';
 	}
-	runFrame(parseInt(data, 10));
+	else {
+		runFrame(parseInt(data, 10));
+	}
 });
