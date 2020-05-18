@@ -1,9 +1,12 @@
+// DOM elements for game information:
 const $deaths = document.getElementById('deaths');
 const $flags = document.getElementById('flags');
 const $reward = document.getElementById('reward');
 
+// Flag to indicate if the C++ process sent the initial message:
 let cppInitialized = false;
 
+// Game size, in tiles.
 const GAME_WIDTH = 10;
 const GAME_HEIGHT = 10;
 
@@ -13,14 +16,18 @@ const initialState = [0, 0, 9, 9, 0];
 
 const currState = [...initialState];
 
+// Array of obstacle positions [row, col].
 const obstacles = [];
 
+// Flag to indicate if the robot is dead in the current frame:
 let dead = false;
 
+// Information counters:
 let totalDeaths = 0;
 let totalFlags = 0;
 let totalReward = 0.0;
 
+// Put the flag in a new random position:
 const repositionFlag = () => {
 	let row, col;
 	do {
@@ -32,26 +39,27 @@ const repositionFlag = () => {
 }
 
 const computeReward = () => {
-	let reward = -0.1;
+	let reward = -0.1;  // Standard reward for a step.
 	if (currState[0] == currState[2] && currState[1] == currState[3]) {
+		// Robot got the flag.
 		reward = 100.0;
 		totalFlags++;
 		$flags.innerHTML = totalFlags;
 		repositionFlag();
 	}
-	else if (obstacles.some(obs =>
-		obs[0] == currState[0] && obs[1] == currState[1]
-	)) {
+	else if (obstacles.some(obs => obs[0] == currState[0] && obs[1] == currState[1])) {
+		// Robot fell in a obstacle:
 		totalDeaths++;
 		$deaths.innerHTML = totalDeaths;
 		dead = true;
-		reward = -60.0;
+		reward = -200.0;
 	}
 	totalReward += reward;
 	$reward.innerHTML = totalReward.toFixed(1);
 	return reward;
 }
 
+// Return random integer in the range [min, max].
 // https://stackoverflow.com/questions/1527803/generating-random-whole-numbers-in-javascript-in-a-specific-range
 const getRandomInt = (min, max) => {
 	min = Math.ceil(min);
@@ -59,6 +67,7 @@ const getRandomInt = (min, max) => {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+// Total number of obstacle tiles on the map.
 let totalObstacles = 25;
 
 const generateObstacles = () => {
@@ -73,6 +82,9 @@ const generateObstacles = () => {
 	drawObstacles(obstacles);
 }
 
+// Compute the 'danger' variable value, part of the game state.
+// It indicates if there are obstacles or not in the 4 tiles
+// around the robot position.
 const computeDanger = () => {
 	currState[4] = 0;
 	const playerUp = [currState[0], currState[1] - 1];
@@ -89,6 +101,7 @@ const computeDanger = () => {
 		currState[4] |= 8;
 }
 
+// Flag to control if the canvas must be updated each frame or not.
 let mustUpdateScreen = true;
 
 const runFrame = (actionIndex) => {
@@ -108,8 +121,14 @@ const runFrame = (actionIndex) => {
 			break;
 	}
 	if (dead) {
-		currState[0] = 0;
-		currState[1] = 0;
+		// If the robot is dead: it will spawn on a random position of the map.
+		let row, col;
+		do {
+			col = getRandomInt(0, GAME_WIDTH - 1);
+			row = getRandomInt(0, GAME_HEIGHT - 1);
+		} while (obstacles.some(obs => obs[0] == row && obs[1] == col));
+		currState[0] = row;
+		currState[1] = col;
 		dead = false;
 	}
 
