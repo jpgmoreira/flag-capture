@@ -9,9 +9,9 @@ const initialState = [0, 0, 9, 9, 0];
 
 const currState = [...initialState];
 
-let spawnPos = [0, 0];
-
 const obstacles = [];
+
+let dead = false;
 
 const repositionFlag = () => {
 	let row, col;
@@ -27,15 +27,12 @@ const computeReward = () => {
 	let reward = -0.1;
 	if (currState[0] == currState[2] && currState[1] == currState[3]) {
 		reward = 100.0;
-		spawnPos = currState.slice(0, 2);
 		repositionFlag();
 	}
 	else if (obstacles.some(obs =>
 		obs[0] == currState[0] && obs[1] == currState[1]
 	)) {
-		console.log(213);
-		currState[0] = spawnPos[0];
-		currState[1] = spawnPos[1];
+		dead = true;
 		reward = -30.0;
 	}
 	return reward;
@@ -48,7 +45,7 @@ const getRandomInt = (min, max) => {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-let totalObstacles = 22;
+let totalObstacles = 40;
 
 const generateObstacles = () => {
 	let row, col;
@@ -83,6 +80,12 @@ const runFrame = (actionIndex) => {
 			currState[0] = Math.min(currState[0] + 1, GAME_WIDTH - 1);
 			break;
 	}
+	if (dead) {
+		currState[0] = 0;
+		currState[1] = 0;
+		dead = false;
+	}
+
 	const reward = computeReward();
 
 	totalReward += reward;
@@ -94,6 +97,6 @@ const runFrame = (actionIndex) => {
 
 	// Update screen:
 	if (mustUpdateScreen) {
-		updateScreen(currState);
+		updateScreen(currState, dead);
 	}
 }
