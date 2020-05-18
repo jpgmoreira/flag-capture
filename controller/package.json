@@ -1,7 +1,7 @@
 {
   "name": "controller",
   "version": "1.0.0",
-  "description": "Controller for game based on Q-Learning algorithm.",
+  "description": "Controller for a game based on the Q-Learning algorithm.",
   "main": "index.js",
   "scripts": {
     "start": "node src/app.js"
