@@ -70,7 +70,7 @@ const generateObstacles = () => {
 		if (row == currState[2] && col == currState[3]) continue;		
 		obstacles.push([row, col]);
 	}
-	obstaclesDrawing(obstacles);
+	drawObstacles(obstacles);
 }
 
 const computeDanger = () => {

@@ -27,10 +27,10 @@ const robot = new Konva.Image({
 });
 
 const deadRobot = robot.clone({
-	offsetX: gridSpacing / 4,
-	offsetY: gridSpacing / 4,
-	width: gridSpacing / 2,
-	height: gridSpacing / 2,
+	offsetX: gridSpacing / 4.0,
+	offsetY: gridSpacing / 4.0,
+	width: gridSpacing / 2.0,
+	height: gridSpacing / 2.0,
 	rotation: 45
 });
 
@@ -42,7 +42,7 @@ const flag = new Konva.Image({
 	height: gridSpacing
 });
 
-const obstaclesDrawing = (obstacles) => {
+const drawObstacles = (obstacles) => {
 	obstacles.forEach((obs) => {
 		obstaclesLayer.add(new Konva.Rect({
 			x: obs[0] * gridSpacing,
@@ -60,7 +60,7 @@ const updateScreen = (state, isDead) => {
 	let offset = 0;
 	if (isDead) {
 		robotDraw = deadRobot;
-		offset = gridSpacing / 2;
+		offset = gridSpacing / 2.0;
 	}
 	robotDraw.absolutePosition({
 		x: state[0] * gridSpacing + offset,
