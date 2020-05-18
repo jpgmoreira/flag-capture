@@ -39,7 +39,7 @@ const repositionFlag = () => {
 }
 
 const computeReward = () => {
-	let reward = -0.1;  // Standard reward for a step.
+	let reward = -0.2;  // Standard reward for a step.
 	if (currState[0] == currState[2] && currState[1] == currState[3]) {
 		// Robot got the flag.
 		reward = 100.0;
@@ -52,7 +52,7 @@ const computeReward = () => {
 		totalDeaths++;
 		$deaths.innerHTML = totalDeaths;
 		dead = true;
-		reward = -200.0;
+		reward = -140.0;
 	}
 	totalReward += reward;
 	$reward.innerHTML = totalReward.toFixed(1);
@@ -105,6 +105,7 @@ const computeDanger = () => {
 let mustUpdateScreen = true;
 
 const runFrame = (actionIndex) => {
+	updateTimer();
 	const action = ACTIONS[actionIndex];
 	switch(action) {
 		case 'up':

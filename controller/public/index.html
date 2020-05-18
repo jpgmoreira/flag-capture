@@ -13,6 +13,7 @@
 		</div>
 
 		<id id="game" class="hidden">
+			<div>Time: <span id="timer">00:00:00</span></div>
 			<div>Deaths: <span id="deaths">0</span></div>
 			<div>Flags: <span id="flags">0</span></div>
 			<div>Total reward: <span id="reward">0.0</span></div>
@@ -32,9 +33,10 @@
 		</id>
 
 		<script src="/socket.io/socket.io.js"></script>
-		<script src="/js/browser_send.js"></script>
+		<script src="/js/browser_send.js"></script>		
 		<script src="/js/konva.min.js"></script>
 		<script src="/js/drawing.js"></script>
+		<script src="/js/timer.js"></script>
 		<script src="/js/game.js"></script>		
 		<script src="/js/dom.js"></script>
 		<script src="/js/browser_receive.js"></script>
