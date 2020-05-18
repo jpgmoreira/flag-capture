@@ -6,7 +6,6 @@
 
 #define GAME_WIDTH 10
 #define GAME_HEIGHT 10
-#define Q_INIT_VAL 0.1
 
 #define DANGER_VALUES 16
 #define N_ACTIONS 4

@@ -34,6 +34,9 @@ const computeReward = () => {
 
 let totalReward = 0.0;
 
+let mustUpdateScreen = true;
+let frameDelay = 100;  // ms.
+
 const runFrame = (actionIndex) => {
 	const action = ACTIONS[actionIndex];
 	switch(action) {

@@ -6,6 +6,6 @@ socket.on('data-from-process', (data) => {
 		runFrame(1);
 	}
 	else {
-		runFrame(parseInt(data, 10));
+		setTimeout(runFrame, frameDelay, parseInt(data, 10));
 	}
 });

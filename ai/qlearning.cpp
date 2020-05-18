@@ -1,6 +1,7 @@
 #include <iostream>
 #include <limits>
 #include <map>
+#include "random_numbers.hpp"
 #include "qlearning.hpp"
 using namespace std;
 
@@ -15,7 +16,7 @@ void initQ() {
 				for (int fc = 0; fc < GAME_WIDTH; fc++)
 					for (int d = 0; d < DANGER_VALUES; d++)
 						for (int a = 0; a < N_ACTIONS; a++)
-							Q[state{ pr, pc, fr, fc, d, a }] = Q_INIT_VAL;
+							Q[state{ pr, pc, fr, fc, d, a }] = randomDouble(-0.1, 0.1);
 }
 
 void start() {
