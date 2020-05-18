@@ -9,18 +9,34 @@ const initialState = [0, 0, 9, 9, 0];
 
 const currState = [...initialState];
 
+let spawnPos = [0, 0];
+
 const obstacles = [];
 
 const repositionFlag = () => {
-	currState[2] = getRandomInt(0, (GAME_WIDTH - 1) / 3) * 3;
-	currState[3] = getRandomInt(0, (GAME_HEIGHT - 1) / 3) * 3;
+	let row, col;
+	do {
+		row = getRandomInt(0, (GAME_HEIGHT - 1) / 3) * 3;
+		col = getRandomInt(0, (GAME_WIDTH - 1) / 3) * 3;
+	} while(obstacles.some(obs => obs[0] == row && obs[1] == col));
+	currState[2] = row;
+	currState[3] = col;
 }
 
 const computeReward = () => {
 	let reward = -0.1;
 	if (currState[0] == currState[2] && currState[1] == currState[3]) {
 		reward = 100.0;
+		spawnPos = currState.slice(0, 2);
 		repositionFlag();
+	}
+	else if (obstacles.some(obs =>
+		obs[0] == currState[0] && obs[1] == currState[1]
+	)) {
+		console.log(213);
+		currState[0] = spawnPos[0];
+		currState[1] = spawnPos[1];
+		reward = -30.0;
 	}
 	return reward;
 }

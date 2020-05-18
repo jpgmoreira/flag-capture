@@ -7,10 +7,10 @@ const stage = new Konva.Stage({
 const gridSpacing = 80;
 
 const layer = new Konva.Layer();
-stage.add(layer);
-
 const obstaclesLayer = new Konva.Layer();
+
 stage.add(obstaclesLayer);
+stage.add(layer);
 
 const robotImg = new Image();
 robotImg.src = '/assets/robot.png';
