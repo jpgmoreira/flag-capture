@@ -1,7 +1,10 @@
-document.getElementById('frame-delay-range').addEventListener('input', (e) => {
-	document.getElementById('frame-delay-label').innerHTML = e.target.value + 'ms';
+const $frameDelayLabel = document.getElementById('frame-delay-label');
+const $screenCheckbox = document.getElementById('update-screen-checkbox');
+
+$frameDelayRange.addEventListener('input', (e) => {
+	$frameDelayLabel.innerHTML = e.target.value + 'ms';
 });
 
-document.getElementById('update-screen-checkbox').addEventListener('change', (e) => {
+$screenCheckbox.addEventListener('change', (e) => {
 	mustUpdateScreen = !mustUpdateScreen;
 });

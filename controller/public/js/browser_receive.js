@@ -1,5 +1,9 @@
+const $frameDelayRange = document.getElementById('frame-delay-range');
+
 // Browser receiving data from the C++ process:
 socket.on('data-from-process', (data) => {
+	// The first time we receive data is to indicate that the process
+	// finished to create the Q-Table.
 	if (!cppInitialized) {
 		cppInitialized = true;
 		document.getElementById('initializing').classList.add('hidden');
@@ -9,7 +13,7 @@ socket.on('data-from-process', (data) => {
 	}
 	else {
 		const actionIndex = parseInt(data, 10);
-		const frameDelay = document.getElementById('frame-delay-range').value;
+		const frameDelay = $frameDelayRange.value;
 		if (mustUpdateScreen) {
 			setTimeout(runFrame, frameDelay, actionIndex);
 		}
