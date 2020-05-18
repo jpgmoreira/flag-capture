@@ -34,6 +34,9 @@ void start() {
 
 	double maxCurrQ;
 
+	double epsilon = 1.0, divFactor = 0.95;
+
+
 	while (true) {
 		// 1. Read curr state and reward:
 		for (int i = 0; i < STATE_SIZE; i++) {
@@ -55,8 +58,11 @@ void start() {
 		lastState.back() = lastAction;
 		Q[lastState] += ALPHA * (reward + GAMMA * maxCurrQ - Q[lastState]);
 
-		// 4. Apply epsilon-greedy exploration strategy:
-
+		// 4. Apply exploration strategy based on epsilon-greedy:
+		if (randomDouble(0.0, 1.0) < epsilon) {
+			epsilon *= divFactor;
+			prefAction = randomInt(0, N_ACTIONS);
+		}
 
 		// 5. Send action to controller. Update variables for next iteration:
 		cout << prefAction << flush;

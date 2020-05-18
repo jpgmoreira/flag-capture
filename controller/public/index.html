@@ -9,11 +9,20 @@
 	<body>
 		<p id="initializing">Initializing cpp...</p>
 
-		<input type="range" id="frame-delay-range" name="fdr" min="0" max="1000" step="25" value="100">
-		<label id="frame-delay-label" for="fdr">100ms</label>
+		<div>Deaths: <span id="deaths">0</span></div>
+		<div>Flags: <span id="flags">0</span></div>
+		<div>Total reward: <span id="reward">0.0</span></div>
 
-		<input type="checkbox" id="update-screen-checkbox" name="usc" checked>
-		<label for="usc">Update screen (not updating makes it learn a bit faster).</label>
+		<div>
+			Time between frames:
+			<input type="range" id="frame-delay-range" name="fdr" min="0" max="1000" step="25" value="400">
+			<label id="frame-delay-label" for="fdr">400ms</label>
+		</div>
+
+		<div>
+			<input type="checkbox" id="update-screen-checkbox" name="usc" checked>
+			<label for="usc">Update screen (not updating makes it learn a bit faster).</label>
+		</div>
 
 		<div id="container"></div>
 

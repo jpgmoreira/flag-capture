@@ -8,6 +8,7 @@ socket.on('data-from-process', (data) => {
 	}
 	else {
 		const actionIndex = parseInt(data, 10);
+		const frameDelay = document.getElementById('frame-delay-range').value;
 		if (mustUpdateScreen) {
 			setTimeout(runFrame, frameDelay, actionIndex);
 		}

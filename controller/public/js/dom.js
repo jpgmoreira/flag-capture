@@ -1,5 +1,4 @@
 document.getElementById('frame-delay-range').addEventListener('input', (e) => {
-	frameDelay = e.target.value;
 	document.getElementById('frame-delay-label').innerHTML = e.target.value + 'ms';
 });
 

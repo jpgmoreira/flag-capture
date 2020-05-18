@@ -1,3 +1,7 @@
+const $deaths = document.getElementById('deaths');
+const $flags = document.getElementById('flags');
+const $reward = document.getElementById('reward');
+
 let cppInitialized = false;
 
 const GAME_WIDTH = 10;
@@ -13,6 +17,10 @@ const obstacles = [];
 
 let dead = false;
 
+let totalDeaths = 0;
+let totalFlags = 0;
+let totalReward = 0.0;
+
 const repositionFlag = () => {
 	let row, col;
 	do {
@@ -27,14 +35,20 @@ const computeReward = () => {
 	let reward = -0.1;
 	if (currState[0] == currState[2] && currState[1] == currState[3]) {
 		reward = 100.0;
+		totalFlags++;
+		$flags.innerHTML = totalFlags;
 		repositionFlag();
 	}
 	else if (obstacles.some(obs =>
 		obs[0] == currState[0] && obs[1] == currState[1]
 	)) {
+		totalDeaths++;
+		$deaths.innerHTML = totalDeaths;
 		dead = true;
-		reward = -30.0;
+		reward = -60.0;
 	}
+	totalReward += reward;
+	$reward.innerHTML = totalReward.toFixed(2);
 	return reward;
 }
 
@@ -45,7 +59,7 @@ const getRandomInt = (min, max) => {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-let totalObstacles = 40;
+let totalObstacles = 25;
 
 const generateObstacles = () => {
 	let row, col;
@@ -59,10 +73,23 @@ const generateObstacles = () => {
 	obstaclesDrawing(obstacles);
 }
 
-let totalReward = 0.0;
+const computeDanger = () => {
+	currState[4] = 0;
+	const playerUp = [currState[0], currState[1] - 1];
+	const playerDown = [currState[0], currState[1] + 1];
+	const playerLeft = [currState[0] - 1, currState[1]];
+	const playerRight = [currState[0] + 1, currState[1]];
+	if (obstacles.some(obs => obs[0] == playerUp[0] && obs[1] == playerUp[1]))
+		currState[4] |= 1;
+	if (obstacles.some(obs => obs[0] == playerDown[0] && obs[1] == playerDown[1]))
+		currState[4] |= 2;
+	if (obstacles.some(obs => obs[0] == playerLeft[0] && obs[1] == playerLeft[1]))
+		currState[4] |= 4;
+	if (obstacles.some(obs => obs[0] == playerRight[0] && obs[1] == playerRight[1]))
+		currState[4] |= 8;
+}
 
 let mustUpdateScreen = true;
-let frameDelay = 100;  // ms.
 
 const runFrame = (actionIndex) => {
 	const action = ACTIONS[actionIndex];
@@ -88,7 +115,7 @@ const runFrame = (actionIndex) => {
 
 	const reward = computeReward();
 
-	totalReward += reward;
+	computeDanger();
 
 	currState.forEach((element) => {
 		sendToProcess(element);
