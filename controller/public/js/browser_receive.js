@@ -6,6 +6,7 @@ socket.on('data-from-process', (data) => {
 		runFrame(1);
 	}
 	else {
-		setTimeout(runFrame, frameDelay, parseInt(data, 10));
+		const delay = mustUpdateScreen ? frameDelay : 0;
+		setTimeout(runFrame, delay, parseInt(data, 10));
 	}
 });

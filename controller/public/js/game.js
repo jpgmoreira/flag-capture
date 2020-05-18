@@ -18,9 +18,8 @@ const getRandomInt = (min, max) => {
 }
 
 const repositionFlag = () => {
-	currState[2] = getRandomInt(0, GAME_WIDTH - 1);
-	currState[3] = getRandomInt(0, GAME_HEIGHT - 1);
-	console.log(currState);
+	currState[2] = getRandomInt(0, (GAME_WIDTH - 1) / 3) * 3;
+	currState[3] = getRandomInt(0, (GAME_HEIGHT - 1) / 3) * 3;
 }
 
 const computeReward = () => {
@@ -63,5 +62,7 @@ const runFrame = (actionIndex) => {
 	sendToProcess(reward);
 
 	// Update screen:
-	updateScreen(currState);
+	if (mustUpdateScreen) {
+		updateScreen(currState);
+	}
 }
