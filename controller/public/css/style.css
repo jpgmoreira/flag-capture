@@ -1,3 +1,9 @@
 body {
 	background: blue;
 }
+
+#container {
+	width: 800px;
+	height: 800px;
+	background: #F0F0F0;
+}

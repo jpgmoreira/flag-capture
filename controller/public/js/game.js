@@ -10,10 +10,24 @@ const initialState = [0, 0, 9, 9, 0];
 
 const currState = [...initialState];
 
+// https://stackoverflow.com/questions/1527803/generating-random-whole-numbers-in-javascript-in-a-specific-range
+const getRandomInt = (min, max) => {
+	min = Math.ceil(min);
+	max = Math.floor(max);
+	return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+const repositionFlag = () => {
+	currState[2] = getRandomInt(0, GAME_WIDTH - 1);
+	currState[3] = getRandomInt(0, GAME_HEIGHT - 1);
+	console.log(currState);
+}
+
 const computeReward = () => {
 	let reward = -0.1;
 	if (currState[0] == currState[2] && currState[1] == currState[3]) {
 		reward = 100.0;
+		repositionFlag();
 	}
 	return reward;
 }
@@ -39,10 +53,12 @@ const runFrame = (actionIndex) => {
 	const reward = computeReward();
 
 	totalReward += reward;
-	console.log(totalReward, action);
 
 	currState.forEach((element) => {
 		sendToProcess(element);
 	});
 	sendToProcess(reward);
+
+	// Update screen:
+	updateScreen(currState);
 }
