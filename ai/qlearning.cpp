@@ -24,7 +24,7 @@ void start() {
 	cout << "Initialized Q table." << flush;
 
 	state currState;
-	state lastState = { 0, 0, 1, 1, 0, DOWN };
+	state lastState = { 0, 0, 9, 9, 0, DOWN };
 
 	int prefAction;
 	int lastAction = DOWN;

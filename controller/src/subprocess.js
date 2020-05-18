@@ -13,7 +13,7 @@ const register = (proc, socket) => {
 
 	// Process -> Node -> Browser:
 	proc.stdout.on('data', (data) => {
-		socket.emit('data-from-process', data);
+		socket.emit('data-from-process', data.toString());
 	});
 
 	// Process error:
