@@ -1,5 +1,3 @@
-const $frameDelayRange = document.getElementById('frame-delay-range');
-
 // Browser receiving data from the C++ process:
 socket.on('data-from-process', (data) => {
 	// The first time we receive data is to indicate that the process
