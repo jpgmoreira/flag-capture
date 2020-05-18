@@ -48,7 +48,7 @@ const computeReward = () => {
 		reward = -60.0;
 	}
 	totalReward += reward;
-	$reward.innerHTML = totalReward.toFixed(2);
+	$reward.innerHTML = totalReward.toFixed(1);
 	return reward;
 }
 

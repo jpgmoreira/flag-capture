@@ -7,24 +7,28 @@
 		<title>AI</title>
 	</head>
 	<body>
-		<p id="initializing">Initializing cpp...</p>
-
-		<div>Deaths: <span id="deaths">0</span></div>
-		<div>Flags: <span id="flags">0</span></div>
-		<div>Total reward: <span id="reward">0.0</span></div>
-
-		<div>
-			Time between frames:
-			<input type="range" id="frame-delay-range" name="fdr" min="0" max="1000" step="25" value="400">
-			<label id="frame-delay-label" for="fdr">400ms</label>
+		<div id="initializing">
+			<p>Initializing...</p>
 		</div>
 
-		<div>
-			<input type="checkbox" id="update-screen-checkbox" name="usc" checked>
-			<label for="usc">Update screen (not updating makes it learn a bit faster).</label>
-		</div>
+		<id id="game" class="hidden">
+			<div>Deaths: <span id="deaths">0</span></div>
+			<div>Flags: <span id="flags">0</span></div>
+			<div>Total reward: <span id="reward">0.0</span></div>
 
-		<div id="container"></div>
+			<div>
+				Delay between frames:
+				<input type="range" id="frame-delay-range" name="fdr" min="0" max="1000" step="25" value="400">
+				<label id="frame-delay-label" for="fdr">400ms</label>
+			</div>
+
+			<div>
+				<input type="checkbox" id="update-screen-checkbox" name="usc" checked>
+				<label for="usc">Update screen (not updating turns the execution a little faster).</label>
+			</div>
+
+			<div id="container"></div>
+		</id>
 
 		<script src="/socket.io/socket.io.js"></script>
 		<script src="/js/browser_send.js"></script>

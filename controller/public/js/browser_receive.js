@@ -2,7 +2,8 @@
 socket.on('data-from-process', (data) => {
 	if (!cppInitialized) {
 		cppInitialized = true;
-		document.getElementById('initializing').style.display = 'none';
+		document.getElementById('initializing').classList.add('hidden');
+		document.getElementById('game').classList.remove('hidden');
 		generateObstacles();
 		runFrame(1);
 	}

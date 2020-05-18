@@ -1,9 +1,30 @@
+* {
+	font-family: "Verdana", sans-serif;
+}
+
 body {
-	background: blue;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background: #AFAFAF;
+}
+
+.hidden {
+	display: none;
+}
+
+#initializing {
+	font-size: 5em;
+	position: absolute;
+	top: 25%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 
 #container {
 	width: 800px;
 	height: 800px;
+	border: 2px solid black;
 	background: #F0F0F0;
 }
